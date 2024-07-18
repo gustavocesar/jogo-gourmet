@@ -6,5 +6,5 @@ public class InterfaceComUsuario : IInterfaceComUsuario
         Console.WriteLine(mensagem);
 
     public string Ler() =>
-        Console.ReadLine()!.ToLower();
+        Console.ReadLine()!.ToLower().Trim();
 }

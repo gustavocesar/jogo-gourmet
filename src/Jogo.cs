@@ -78,6 +78,12 @@ public class Jogo
     private string ObterRespostaDoUsuario(string pergunta)
     {
         _interface.Escrever(pergunta);
-        return _interface.Ler();
+
+        string resposta;
+        do
+            resposta = _interface.Ler();
+        while (string.IsNullOrWhiteSpace(resposta));
+
+        return resposta;
     }
 }
