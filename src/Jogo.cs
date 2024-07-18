@@ -29,8 +29,7 @@ public class Jogo
         if (no.IsNoFolha())
         {
             //estamos em um nó folha (prato)
-            Console.WriteLine($"O prato que você pensou é {no.Valor}? (sim/não)");
-            string resposta = Console.ReadLine()!.ToLower();
+            var resposta = ObterRespostaDoUsuario($"O prato que você pensou é {no.Valor}? (sim/não)");
 
             if (resposta is "sim")
             {
@@ -39,11 +38,9 @@ public class Jogo
             }
             else
             {
-                Console.WriteLine("Qual prato você pensou?");
-                string novoPrato = Console.ReadLine()!;
+                var novoPrato = ObterRespostaDoUsuario("Qual prato você pensou?");
 
-                Console.WriteLine($"{novoPrato} é _____________ mas {no.Valor} não.");
-                string diferenca = Console.ReadLine()!;
+                var diferenca = ObterRespostaDoUsuario($"{novoPrato} é _____________ mas {no.Valor} não.");
 
                 var novoNo = new No(diferenca, novoPrato, no.Valor);
 
@@ -65,13 +62,18 @@ public class Jogo
         else
         {
             //estamos em um nó intermediário (pergunta)
-            Console.WriteLine($"O prato que você pensou é {no.Valor}? (sim/não)");
-            string resposta = Console.ReadLine()!.ToLower();
+            var resposta = ObterRespostaDoUsuario($"O prato que você pensou é {no.Valor}? (sim/não)");
 
             if (resposta is "sim")
                 Perguntar(no.Esquerda!, no, true);
             else
                 Perguntar(no.Direita!, no, false);
         }
+    }
+
+    private static string ObterRespostaDoUsuario(string pergunta)
+    {
+        Console.WriteLine(pergunta);
+        return Console.ReadLine()!.ToLower();
     }
 }
