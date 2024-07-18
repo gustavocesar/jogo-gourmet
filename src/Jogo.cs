@@ -58,11 +58,8 @@ public class Jogo
             Perguntar(no.Direita!, no, false);
     }
 
-    private void TratarRespostaSim()
-    {
+    private void TratarRespostaSim() =>
         _interface.Escrever("Acertei!");
-        Environment.Exit(0);
-    }
 
     private void TratarRespostaNao(No no, No pai, bool isEsquerda)
     {
