@@ -1,4 +1,7 @@
 ﻿using JogoGourmet;
+using JogoGourmet.Interface;
 
-var jogo = new Jogo();
+var interfaceComUsuario = new InterfaceComUsuario();
+
+var jogo = new Jogo(interfaceComUsuario);
 jogo.Iniciar();

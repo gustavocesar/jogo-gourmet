@@ -1,13 +1,17 @@
 ﻿using JogoGourmet.EstruturaDeDados;
+using JogoGourmet.Interface;
 
 namespace JogoGourmet;
 
 public class Jogo
 {
     private No _raiz;
+    private IInterfaceComUsuario _interface;
 
-    public Jogo()
+    public Jogo(IInterfaceComUsuario interfaceComUsuario)
     {
+        _interface = interfaceComUsuario;
+
         //inicialização com dois pratos básicos
         var esquerda = new No("Lasanha");
         var direita = new No("Bolo de Chocolate");
@@ -18,7 +22,7 @@ public class Jogo
 
     public void Iniciar()
     {
-        Console.WriteLine("Pense em um prato que gosta...");
+        _interface.Escrever("Pense em um prato que gosta...");
 
         while (true)
             Perguntar(_raiz, null!, false);
@@ -33,7 +37,7 @@ public class Jogo
 
             if (resposta is "sim")
             {
-                Console.WriteLine("Acertei!");
+                _interface.Escrever("Acertei!");
                 Environment.Exit(0);
             }
             else
@@ -56,7 +60,7 @@ public class Jogo
                     _raiz = novoNo;
                 }
 
-                Console.WriteLine("Obrigado! Vou lembrar disso da próxima vez.");
+                _interface.Escrever("Obrigado! Vou lembrar disso da próxima vez.");
             }
         }
         else
@@ -71,9 +75,9 @@ public class Jogo
         }
     }
 
-    private static string ObterRespostaDoUsuario(string pergunta)
+    private string ObterRespostaDoUsuario(string pergunta)
     {
-        Console.WriteLine(pergunta);
-        return Console.ReadLine()!.ToLower();
+        _interface.Escrever(pergunta);
+        return _interface.Ler();
     }
 }
