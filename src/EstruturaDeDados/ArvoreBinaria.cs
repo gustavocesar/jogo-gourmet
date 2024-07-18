@@ -2,12 +2,12 @@
 
 public class ArvoreBinaria
 {
-    public ArvoreBinaria()
+    public ArvoreBinaria(string raiz, No esquerda, No direita)
     {
-        //inicialização com dois pratos básicos
-        Esquerda = new No("Lasanha");
-        Direita = new No("Bolo de Chocolate");
-        Raiz = new No("Massa", Esquerda, Direita);
+        Esquerda = esquerda;
+        Direita = direita;
+
+        Raiz = new No(raiz, esquerda, direita);
     }
 
     public No Raiz { get; private set; }
