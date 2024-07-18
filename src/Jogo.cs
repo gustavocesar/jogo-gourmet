@@ -31,48 +31,60 @@ public class Jogo
     private void Perguntar(No no, No pai, bool isEsquerda)
     {
         if (no.IsNoFolha())
+            PerguntarSobrePrato(no, pai, isEsquerda);
+        else
+            PerguntarSobreCategoriaDoPrato(no);
+    }
+
+    //tratamento de nós folha (pratos)
+    private void PerguntarSobrePrato(No no, No pai, bool isEsquerda)
+    {
+        var resposta = ObterRespostaDoUsuario($"O prato que você pensou é {no.Valor}? (sim/não)");
+
+        if (resposta is "sim")
+            TratarRespostaSim();
+        else
+            TratarRespostaNao(no, pai, isEsquerda);
+    }
+
+    //tratamento de nós intermediários (perguntas)
+    private void PerguntarSobreCategoriaDoPrato(No no)
+    {
+        var resposta = ObterRespostaDoUsuario($"O prato que você pensou é {no.Valor}? (sim/não)");
+
+        if (resposta is "sim")
+            Perguntar(no.Esquerda!, no, true);
+        else
+            Perguntar(no.Direita!, no, false);
+    }
+
+    private void TratarRespostaSim()
+    {
+        _interface.Escrever("Acertei!");
+        Environment.Exit(0);
+    }
+
+    private void TratarRespostaNao(No no, No pai, bool isEsquerda)
+    {
+        var novoPrato = ObterRespostaDoUsuario("Qual prato você pensou?");
+
+        var diferenca = ObterRespostaDoUsuario($"{novoPrato} é _____________ mas {no.Valor} não.");
+
+        var novoNo = new No(diferenca, novoPrato, no.Valor);
+
+        if (pai is not null)
         {
-            //estamos em um nó folha (prato)
-            var resposta = ObterRespostaDoUsuario($"O prato que você pensou é {no.Valor}? (sim/não)");
-
-            if (resposta is "sim")
-            {
-                _interface.Escrever("Acertei!");
-                Environment.Exit(0);
-            }
+            if (isEsquerda)
+                pai.SetEsquerda(novoNo);
             else
-            {
-                var novoPrato = ObterRespostaDoUsuario("Qual prato você pensou?");
-
-                var diferenca = ObterRespostaDoUsuario($"{novoPrato} é _____________ mas {no.Valor} não.");
-
-                var novoNo = new No(diferenca, novoPrato, no.Valor);
-
-                if (pai is not null)
-                {
-                    if (isEsquerda)
-                        pai.SetEsquerda(novoNo);
-                    else
-                        pai.SetDireita(novoNo);
-                }
-                else
-                {
-                    _raiz = novoNo;
-                }
-
-                _interface.Escrever("Obrigado! Vou lembrar disso da próxima vez.");
-            }
+                pai.SetDireita(novoNo);
         }
         else
         {
-            //estamos em um nó intermediário (pergunta)
-            var resposta = ObterRespostaDoUsuario($"O prato que você pensou é {no.Valor}? (sim/não)");
-
-            if (resposta is "sim")
-                Perguntar(no.Esquerda!, no, true);
-            else
-                Perguntar(no.Direita!, no, false);
+            _raiz = novoNo;
         }
+
+        _interface.Escrever("Obrigado! Vou lembrar disso da próxima vez.");
     }
 
     private string ObterRespostaDoUsuario(string pergunta)
