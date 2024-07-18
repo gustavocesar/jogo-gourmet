@@ -14,6 +14,13 @@ public class No
         Direita = direita;
     }
 
+    public No(string valor, string esquerda, string direita)
+    {
+        Valor = valor;
+        Esquerda = string.IsNullOrWhiteSpace(esquerda) ? null! : new No(esquerda);
+        Direita = string.IsNullOrWhiteSpace(direita) ? null! : new No(direita);
+    }
+
     public string Valor { get; private set; }
     public No? Esquerda { get; private set; }
     public No? Direita { get; private set; }
