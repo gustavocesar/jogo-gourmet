@@ -1,7 +1,17 @@
-﻿using JogoGourmet;
+﻿using System.Diagnostics.CodeAnalysis;
+using JogoGourmet;
 using JogoGourmet.Interface;
 
-var interfaceComUsuario = new InterfaceComUsuario();
+[ExcludeFromCodeCoverage]
+class Program
+{
+    private static void Main(string[] args)
+    {
+        var interfaceComUsuario = new InterfaceComUsuario();
 
-var jogo = new Jogo(interfaceComUsuario);
-jogo.Iniciar();
+        var cancellationToken = new CancellationTokenSource().Token;
+
+        var jogo = new Jogo(interfaceComUsuario, cancellationToken);
+        jogo.Iniciar();
+    }
+}

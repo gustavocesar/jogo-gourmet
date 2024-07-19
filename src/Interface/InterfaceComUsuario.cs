@@ -1,5 +1,8 @@
-﻿namespace JogoGourmet.Interface;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace JogoGourmet.Interface;
+
+[ExcludeFromCodeCoverage]
 public class InterfaceComUsuario : IInterfaceComUsuario
 {
     public void Escrever(string mensagem) =>
