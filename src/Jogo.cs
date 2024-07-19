@@ -6,7 +6,7 @@ namespace JogoGourmet;
 public class Jogo
 {
     private No _raiz;
-    private IInterfaceComUsuario _interface;
+    private readonly IInterfaceComUsuario _interface;
 
     public Jogo(IInterfaceComUsuario interfaceComUsuario)
     {
