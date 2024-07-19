@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using JogoGourmet;
 using JogoGourmet.Interface;
 
+namespace JogoGourmet;
+
 [ExcludeFromCodeCoverage]
-class Program
+static class Program
 {
     private static void Main(string[] args)
     {
