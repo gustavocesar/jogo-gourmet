@@ -7,9 +7,11 @@ public class Jogo
 {
     private No _raiz;
     private readonly IInterfaceComUsuario _interface;
+    private readonly CancellationToken _cancellationToken;
 
-    public Jogo(IInterfaceComUsuario interfaceComUsuario)
+    public Jogo(IInterfaceComUsuario interfaceComUsuario, CancellationToken cancellationToken)
     {
+        _cancellationToken = cancellationToken;
         _interface = interfaceComUsuario;
 
         //inicialização com dois pratos básicos
@@ -24,7 +26,7 @@ public class Jogo
     {
         _interface.Escrever("Pense em um prato que gosta...");
 
-        while (true)
+        while (!_cancellationToken.IsCancellationRequested)
             Perguntar(_raiz, null!, false);
     }
 
